@@ -12,6 +12,10 @@ npm-debug.log*
 # Claude Code local (per-machine) settings
 .claude/settings.local.json
 
+# Brand source assets — internal (e.g. the internal style-guide PDF). Never
+# publish to the public repo. Only specific served assets are copied to assets/.
+brand/
+
 # OS / editor
 .DS_Store
 Thumbs.db
