@@ -1,4 +1,4 @@
-import { dataToElements } from './graph-model.mjs';
+import { dataToElements, computeTrace, directNeighbors } from './graph-model.mjs';
 
 const cytoscape = window.cytoscape;
 try { cytoscape.use(window.cytoscapeDagre); } catch { /* already registered */ }
@@ -41,3 +41,90 @@ cy.fit(undefined, 40);
 
 window.__cy = cy;      // for manual QA + Task 4
 window.__data = data;
+
+// ---------- Panel ----------
+const TYPE_NAME = { activity: 'Activity', intermediate: 'Intermediate effect', outcome: 'Ultimate outcome' };
+const byId = Object.fromEntries(data.nodes.map(n => [n.id, n]));
+const panel = document.getElementById('panel');
+
+function makeLink(id, dir) {
+  const el = document.createElement('div');
+  el.className = 'lnk ' + dir;
+  el.textContent = byId[id].label;
+  el.onclick = () => selectNode(id);
+  return el;
+}
+
+function renderPanel(id) {
+  const n = byId[id];
+  document.getElementById('p-name').textContent = n.label;
+  const badge = document.getElementById('p-badge');
+  badge.textContent = TYPE_NAME[n.type];
+  badge.style.background = C[n.type] + '33';
+  badge.style.color = C[n.type];
+  const desc = document.getElementById('p-desc');
+  desc.textContent = n.description || '';
+  desc.hidden = !n.description;
+  const { parents, children } = directNeighbors(data, id);
+  const pp = document.getElementById('p-parents');
+  const pc = document.getElementById('p-children');
+  pp.replaceChildren();
+  pc.replaceChildren();
+  if (!parents.length) pp.innerHTML = '<div class="none">Starting activity — nothing upstream.</div>';
+  parents.forEach(pid => pp.appendChild(makeLink(pid, 'up')));
+  if (!children.length) pc.innerHTML = '<div class="none">Ultimate outcome — nothing downstream.</div>';
+  children.forEach(cid => pc.appendChild(makeLink(cid, 'down')));
+  panel.hidden = false;
+}
+
+// ---------- Selection ----------
+function selectNode(id) {
+  const { ancestors, descendants } = computeTrace(data, id);
+  const up = new Set([id, ...ancestors]);
+  const down = new Set([id, ...descendants]);
+  cy.batch(() => {
+    cy.elements().addClass('dim').removeClass('lit-sel lit-up lit-down e-up e-down');
+    cy.nodes().forEach(n => {
+      const nid = n.id();
+      if (nid === id) n.removeClass('dim').addClass('lit-sel');
+      else if (ancestors.has(nid)) n.removeClass('dim').addClass('lit-up');
+      else if (descendants.has(nid)) n.removeClass('dim').addClass('lit-down');
+    });
+    cy.edges().forEach(e => {
+      const s = e.source().id(), t = e.target().id();
+      if (up.has(s) && up.has(t)) e.removeClass('dim').addClass('e-up');
+      else if (down.has(s) && down.has(t)) e.removeClass('dim').addClass('e-down');
+    });
+  });
+  renderPanel(id);
+  const node = cy.getElementById(id);
+  cy.animate({ center: { eles: node } }, { duration: 250 });
+}
+
+function clearSelection() {
+  cy.elements().removeClass('dim lit-sel lit-up lit-down e-up e-down');
+  panel.hidden = true;
+}
+
+cy.on('tap', 'node', (e) => selectNode(e.target.id()));
+cy.on('tap', (e) => { if (e.target === cy) clearSelection(); });
+document.getElementById('panel-close').onclick = clearSelection;
+document.getElementById('reset').onclick = () => { clearSelection(); cy.animate({ fit: { padding: 40 } }, { duration: 250 }); };
+
+// ---------- Search ----------
+const list = document.getElementById('node-list');
+data.nodes.slice().sort((a, b) => a.label.localeCompare(b.label)).forEach(n => {
+  const opt = document.createElement('option');
+  opt.value = n.label;
+  list.appendChild(opt);
+});
+const labelToId = Object.fromEntries(data.nodes.map(n => [n.label, n.id]));
+const search = document.getElementById('search');
+function trySearch() {
+  const id = labelToId[search.value];
+  if (id) { selectNode(id); search.blur(); }
+}
+search.addEventListener('change', trySearch);
+search.addEventListener('keydown', (e) => { if (e.key === 'Enter') trySearch(); });
+
+window.__select = selectNode;
