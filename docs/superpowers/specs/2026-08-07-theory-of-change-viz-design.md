@@ -23,9 +23,18 @@ causal story legible and let users trace chains interactively.
 - Source of truth: a Notion database where each node is a page, with **How** and
   **Why** relation properties linking nodes. These relations give the graph its
   direction.
-- The graph is a **directed acyclic graph (DAG)**, not clean layers. The longest
-  chain is roughly 7 stages, but chains vary in length and nodes cross-link
-  between chains (a node can be, say, 4th in one chain and 2nd in another).
+- The graph is a **directed graph**, not clean layers. The longest chain is
+  roughly 7 stages, but chains vary in length and nodes cross-link between chains
+  (a node can be, say, 4th in one chain and 2nd in another).
+- **It is mostly acyclic but contains at least one intentional positive
+  reinforcement loop** (a cycle), e.g. "Improve Canada's AI reputation" ↔
+  "Recruit and retain Canada CIFAR AI Chairs". The original design assumed a
+  strict DAG; that assumption was corrected during implementation. v1 renders
+  loops without special treatment (dagre lays them out, the trace logic
+  terminates on them, and a loop node simply appears under both "Contributed to
+  by" and "Leads to" in the panel). Cycles are surfaced as a non-fatal
+  validation **warning**, not an error. Dedicated loop visualization is a v2
+  enhancement (see Out of Scope).
 - Expected scale at maturity: ~50 nodes.
 - Node types today: **activity** and **ultimate outcome** are explicitly marked
   in Notion. Everything else is treated as **intermediate**. More attributes
@@ -142,12 +151,15 @@ without hunting on the canvas.
 
 ## Testing
 
-- **Data validation (automated), run on every `data.json` build:**
-  - no edge references a missing node,
-  - the graph has no cycles (must remain a DAG),
-  - every node has a valid `type`,
-  - no orphan nodes (every node connected).
-  Catches Notion data problems before they reach the site.
+- **Data validation (automated), run on every `data.json` build.** Returns
+  `{ ok, errors, warnings }`; a build fails only on `errors`. Hard errors:
+  - an edge references a missing node,
+  - a node has a missing/duplicate id, missing label, or invalid `type`,
+  - a self-loop (`source === target`),
+  - an orphan node (no edges at all).
+  Non-fatal **warning** (surfaced but does not block the build): a cycle /
+  reinforcement loop. Catches Notion data problems before they reach the site
+  while still permitting intentional loops.
 - **App (manual QA checklist):** selection traces the correct upstream/downstream
   set; search jumps to the right node; overview restores on background click;
   labels appear/hide as specified. Automated UI tests are intentionally light —
@@ -159,6 +171,13 @@ without hunting on the canvas.
   nodes disappear entirely and the selected node's ancestors + descendants
   re-lay-out for maximum legibility. Cheap to add later because the
   ancestor/descendant traversal already exists in v1.
+- **Reinforcement-loop visualization** (v2). The data contains intentional
+  positive reinforcement loops (cycles). v1 renders them but does not call them
+  out. v2 should make loops visually explicit — e.g. highlight the reinforcing
+  edges, badge the nodes in a loop, or draw the cycle as a distinct closed
+  circuit — so a viewer can see "this reinforces itself." The traversal and
+  cycle-detection needed to find loops already exist (`validateGraph` surfaces
+  them as warnings; `computeTrace` handles them safely).
 - In-app editing of the graph.
 - Live Notion sync.
 - Accounts / logins.
