@@ -413,8 +413,7 @@ console.log(`data.json valid: ${data.nodes.length} nodes, ${data.edges.length} e
 Run: `npm run validate`
 Expected: prints "data.json valid: 19 nodes, 24 edges", exit code 0.
 
-Run: `node -e "import('./src/graph-model.mjs').then(m=>{const d=require('fs').readFileSync('./test/fixtures/invalid-graph.json','utf8');process.exit(m.validateGraph(JSON.parse(d)).ok?0:1)})"` — or simply trust the unit test above.
-Expected: the unit test already proves the invalid fixture is rejected; no action needed if it passed.
+The invalid-fixture rejection is already proven by the "invalid fixture is rejected" unit test in Step 3 — no separate CLI-failure command needed here.
 
 - [ ] **Step 7: Commit**
 
