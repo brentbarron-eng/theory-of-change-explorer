@@ -26,6 +26,23 @@ const STYLE = [
   { selector: 'edge.e-down', style: { 'line-color': C.down, 'target-arrow-color': C.down, 'opacity': 0.95, 'width': 2 } },
 ];
 
+function pinEnds(cy) {
+  const xs = cy.nodes().map(n => n.position('x'));
+  const ys = cy.nodes().map(n => n.position('y'));
+  const leftX = Math.min(...xs), rightX = Math.max(...xs);
+  const top = Math.min(...ys), bottom = Math.max(...ys);
+  const spread = (group, x) => {
+    const sorted = group.sort((a, b) => a.position('y') - b.position('y'));
+    const n = sorted.length;
+    sorted.forEach((node, i) => {
+      const y = n <= 1 ? (top + bottom) / 2 : top + (bottom - top) * (i / (n - 1));
+      node.position({ x, y });
+    });
+  };
+  spread(cy.nodes('.activity'), leftX);
+  spread(cy.nodes('.outcome'), rightX);
+}
+
 let data, cy;
 try {
   const res = await fetch('./data.json');
@@ -40,6 +57,7 @@ try {
     wheelSensitivity: 0.2,
   });
   cy.nodes('.activity, .outcome').addClass('anchor');
+  pinEnds(cy);
   cy.fit(undefined, 40);
 } catch (err) {
   console.error(err);
