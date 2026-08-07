@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Theory of Change Explorer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header id="topbar">
+    <h1>Theory of Change</h1>
+    <input id="search" list="node-list" placeholder="Search for a node…" autocomplete="off">
+    <datalist id="node-list"></datalist>
+    <button id="reset" type="button">Reset view</button>
+  </header>
+
+  <div id="cy"></div>
+
+  <aside id="panel" hidden>
+    <button id="panel-close" type="button" aria-label="Close">&times;</button>
+    <h2 id="p-name"></h2>
+    <span id="p-badge" class="badge"></span>
+    <p id="p-desc" class="desc"></p>
+    <h3 class="sec">Contributed to by</h3>
+    <div id="p-parents"></div>
+    <h3 class="sec">Leads to</h3>
+    <div id="p-children"></div>
+  </aside>
+
+  <div id="legend">
+    <div><span class="dot activity"></span> Activity</div>
+    <div><span class="dot intermediate"></span> Intermediate effect</div>
+    <div><span class="dot outcome"></span> Ultimate outcome</div>
+  </div>
+
+  <script src="vendor/cytoscape.min.js"></script>
+  <script src="vendor/dagre.min.js"></script>
+  <script src="vendor/cytoscape-dagre.js"></script>
+  <script type="module" src="src/app.mjs"></script>
+</body>
+</html>

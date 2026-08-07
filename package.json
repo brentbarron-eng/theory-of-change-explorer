@@ -10,5 +10,12 @@
     "build-data": "node scripts/build-data.mjs",
     "vendor": "node scripts/vendor.mjs",
     "serve": "npx serve ."
+  },
+  "devDependencies": {
+    "cytoscape": "^3.30.0",
+    "dagre": "^0.8.5",
+    "cytoscape-dagre": "^2.5.0",
+    "@notionhq/client": "^2.2.15",
+    "dotenv": "^16.4.5"
   }
 }
