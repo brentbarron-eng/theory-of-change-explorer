@@ -1,0 +1,17 @@
+[
+  { "id": "p-act", "properties": {
+    "Name": { "title": [ { "plain_text": "Fund networks" } ] },
+    "Type": { "select": { "name": "Activity" } },
+    "How":  { "relation": [] },
+    "Why":  { "relation": [ { "id": "p-mid" } ] } } },
+  { "id": "p-mid", "properties": {
+    "Name": { "title": [ { "plain_text": "Collaborations form" } ] },
+    "Type": { "select": null },
+    "How":  { "relation": [ { "id": "p-act" } ] },
+    "Why":  { "relation": [ { "id": "p-out" } ] } } },
+  { "id": "p-out", "properties": {
+    "Name": { "title": [ { "plain_text": "Benefits to Canadians" } ] },
+    "Type": { "select": { "name": "Ultimate outcome" } },
+    "How":  { "relation": [ { "id": "p-mid" }, { "id": "p-ghost" } ] },
+    "Why":  { "relation": [] } } }
+]
