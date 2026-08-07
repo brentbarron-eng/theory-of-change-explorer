@@ -9,6 +9,7 @@
     "validate": "node scripts/validate-data.mjs",
     "build-data": "node scripts/build-data.mjs",
     "vendor": "node scripts/vendor.mjs",
+    "assets": "node scripts/copy-assets.mjs",
     "serve": "npx serve ."
   },
   "devDependencies": {
@@ -16,6 +17,7 @@
     "dagre": "^0.8.5",
     "cytoscape-dagre": "^2.5.0",
     "@notionhq/client": "^2.2.15",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "@fontsource/fira-sans": "^5.0.0"
   }
 }
