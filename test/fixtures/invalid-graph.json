@@ -1,0 +1,1 @@
+{ "nodes": [ { "id": "a", "label": "A", "type": "activity" } ], "edges": [ { "source": "a", "target": "missing" } ] }

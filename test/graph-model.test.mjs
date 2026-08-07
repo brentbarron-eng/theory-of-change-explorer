@@ -92,3 +92,17 @@ test('dataToElements emits nodes with type class and edges with __ id', () => {
   assert.equal(aNode.classes, 'activity');
   assert.ok(els.some(e => e.data.id === 'a__m' && e.data.source === 'a' && e.data.target === 'm'));
 });
+
+import { readFileSync } from 'node:fs';
+
+test('shipped data.json is a valid graph', () => {
+  const data = JSON.parse(readFileSync(new URL('../data.json', import.meta.url), 'utf8'));
+  const r = validateGraph(data);
+  assert.equal(r.ok, true, r.errors.join('; '));
+});
+
+test('invalid fixture is rejected', () => {
+  const data = JSON.parse(readFileSync(new URL('./fixtures/invalid-graph.json', import.meta.url), 'utf8'));
+  const r = validateGraph(data);
+  assert.equal(r.ok, false);
+});

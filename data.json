@@ -1,0 +1,37 @@
+{
+  "nodes": [
+    { "id": "A1", "label": "Fund interdisciplinary research networks", "type": "activity" },
+    { "id": "A2", "label": "Convene global experts", "type": "activity" },
+    { "id": "A3", "label": "Support early-career researchers", "type": "activity" },
+    { "id": "I1", "label": "New cross-disciplinary collaborations form", "type": "intermediate" },
+    { "id": "I2", "label": "Researchers exchange knowledge", "type": "intermediate" },
+    { "id": "I3", "label": "Early-career researchers gain mentorship", "type": "intermediate" },
+    { "id": "I4", "label": "Novel research questions pursued", "type": "intermediate" },
+    { "id": "I5", "label": "Research capacity strengthened", "type": "intermediate" },
+    { "id": "I6", "label": "Diverse talent retained in Canada", "type": "intermediate" },
+    { "id": "I7", "label": "High-impact discoveries published", "type": "intermediate" },
+    { "id": "I8", "label": "Cross-sector partnerships built", "type": "intermediate" },
+    { "id": "I9", "label": "Skilled workforce grows", "type": "intermediate" },
+    { "id": "I10", "label": "Knowledge mobilized to decision-makers", "type": "intermediate" },
+    { "id": "I11", "label": "New technologies & methods adopted", "type": "intermediate" },
+    { "id": "I12", "label": "Talent drives innovation in industry", "type": "intermediate" },
+    { "id": "I13", "label": "Evidence informs public policy", "type": "intermediate" },
+    { "id": "I14", "label": "Companies & institutions innovate", "type": "intermediate" },
+    { "id": "O1", "label": "Evidence-informed policy & practice", "type": "outcome" },
+    { "id": "O2", "label": "Social & economic benefits to Canadians", "type": "outcome" }
+  ],
+  "edges": [
+    { "source": "A1", "target": "I1" }, { "source": "A2", "target": "I1" },
+    { "source": "A2", "target": "I2" }, { "source": "A3", "target": "I2" },
+    { "source": "A3", "target": "I3" }, { "source": "I1", "target": "I4" },
+    { "source": "I2", "target": "I5" }, { "source": "I3", "target": "I5" },
+    { "source": "I3", "target": "I6" }, { "source": "I4", "target": "I7" },
+    { "source": "I4", "target": "I8" }, { "source": "I5", "target": "I7" },
+    { "source": "I5", "target": "I9" }, { "source": "I6", "target": "I9" },
+    { "source": "I7", "target": "I10" }, { "source": "I8", "target": "I10" },
+    { "source": "I7", "target": "I11" }, { "source": "I9", "target": "I12" },
+    { "source": "I10", "target": "I13" }, { "source": "I11", "target": "I14" },
+    { "source": "I12", "target": "I14" }, { "source": "I13", "target": "O1" },
+    { "source": "I13", "target": "O2" }, { "source": "I14", "target": "O2" }
+  ]
+}
