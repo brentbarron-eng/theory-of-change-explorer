@@ -8,11 +8,16 @@
 </head>
 <body>
   <header id="topbar">
-    <h1>Theory of Change</h1>
+    <img id="brandlogo" src="assets/cifar-logo-white.png" alt="CIFAR">
+    <span class="divider"></span>
+    <h1>Theory of Change <b>Explorer</b></h1>
     <input id="search" list="node-list" placeholder="Search for a node…" autocomplete="off">
     <datalist id="node-list"></datalist>
     <button id="reset" type="button">Reset view</button>
   </header>
+  <div id="topaccent"></div>
+  <div class="col-label col-left">ACTIVITIES</div>
+  <div class="col-label col-right">ULTIMATE OUTCOMES</div>
 
   <div id="cy"></div>
 
@@ -31,6 +36,9 @@
     <div><span class="dot activity"></span> Activity</div>
     <div><span class="dot intermediate"></span> Intermediate effect</div>
     <div><span class="dot outcome"></span> Ultimate outcome</div>
+    <div class="sep"></div>
+    <div><span class="swatch up"></span> upstream</div>
+    <div><span class="swatch down"></span> downstream</div>
   </div>
 
   <script src="vendor/cytoscape.min.js"></script>
