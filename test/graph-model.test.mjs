@@ -41,15 +41,18 @@ test('invalid type fails', () => {
 
 test('edge referencing missing node fails', () => {
   const r = validateGraph({ nodes:[{id:'a',label:'x',type:'activity'}], edges:[{source:'a',target:'ghost'}] });
+  assert.equal(r.ok, false);
   assert.ok(r.errors.some(e => e.includes('edge target not found: ghost')));
 });
 
-test('cycle fails', () => {
+test('cycle is a warning, not an error', () => {
   const r = validateGraph({
     nodes:[{id:'a',label:'a',type:'activity'},{id:'b',label:'b',type:'intermediate'}],
     edges:[{source:'a',target:'b'},{source:'b',target:'a'}],
   });
-  assert.ok(r.errors.some(e => e.includes('cycle')));
+  assert.equal(r.ok, true, r.errors.join('; '));
+  assert.ok(!r.errors.some(e => e.includes('cycle')));
+  assert.ok(r.warnings.some(w => /cycle/.test(w)));
 });
 
 test('orphan node fails', () => {

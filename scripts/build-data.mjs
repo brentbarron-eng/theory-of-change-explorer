@@ -21,10 +21,13 @@ do {
 } while (cursor);
 
 const graph = notionToGraph(pages);
-const { ok, errors } = validateGraph(graph);
+const { ok, errors, warnings } = validateGraph(graph);
 if (!ok) {
   console.error('Generated graph is INVALID — not writing data.json:\n' + errors.map(e => ' - ' + e).join('\n'));
   process.exit(1);
+}
+if (warnings && warnings.length) {
+  console.warn(warnings.map(w => '⚠ warning: ' + w).join('\n'));
 }
 writeFileSync(new URL('../data.json', import.meta.url), JSON.stringify(graph, null, 2) + '\n');
 console.log(`Wrote data.json: ${graph.nodes.length} nodes, ${graph.edges.length} edges`);

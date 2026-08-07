@@ -2,8 +2,9 @@ export const NODE_TYPES = ['activity', 'intermediate', 'outcome'];
 
 export function validateGraph(data) {
   const errors = [];
+  const warnings = [];
   if (!data || !Array.isArray(data.nodes) || !Array.isArray(data.edges)) {
-    return { ok: false, errors: ['data must have `nodes` and `edges` arrays'] };
+    return { ok: false, errors: ['data must have `nodes` and `edges` arrays'], warnings };
   }
   const ids = new Set();
   for (const n of data.nodes) {
@@ -23,8 +24,8 @@ export function validateGraph(data) {
   }
   for (const id of ids) if (!connected.has(id)) errors.push(`orphan node (no edges): ${id}`);
   const cycle = findCycle(data);
-  if (cycle) errors.push(`cycle detected: ${cycle.join(' -> ')}`);
-  return { ok: errors.length === 0, errors };
+  if (cycle) warnings.push(`cycle detected: ${cycle.join(' -> ')}`);
+  return { ok: errors.length === 0, errors, warnings };
 }
 
 function findCycle(data) {

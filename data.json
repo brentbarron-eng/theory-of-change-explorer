@@ -1,37 +1,374 @@
 {
   "nodes": [
-    { "id": "A1", "label": "Fund interdisciplinary research networks", "type": "activity" },
-    { "id": "A2", "label": "Convene global experts", "type": "activity" },
-    { "id": "A3", "label": "Support early-career researchers", "type": "activity" },
-    { "id": "I1", "label": "New cross-disciplinary collaborations form", "type": "intermediate" },
-    { "id": "I2", "label": "Researchers exchange knowledge", "type": "intermediate" },
-    { "id": "I3", "label": "Early-career researchers gain mentorship", "type": "intermediate" },
-    { "id": "I4", "label": "Novel research questions pursued", "type": "intermediate" },
-    { "id": "I5", "label": "Research capacity strengthened", "type": "intermediate" },
-    { "id": "I6", "label": "Diverse talent retained in Canada", "type": "intermediate" },
-    { "id": "I7", "label": "High-impact discoveries published", "type": "intermediate" },
-    { "id": "I8", "label": "Cross-sector partnerships built", "type": "intermediate" },
-    { "id": "I9", "label": "Skilled workforce grows", "type": "intermediate" },
-    { "id": "I10", "label": "Knowledge mobilized to decision-makers", "type": "intermediate" },
-    { "id": "I11", "label": "New technologies & methods adopted", "type": "intermediate" },
-    { "id": "I12", "label": "Talent drives innovation in industry", "type": "intermediate" },
-    { "id": "I13", "label": "Evidence informs public policy", "type": "intermediate" },
-    { "id": "I14", "label": "Companies & institutions innovate", "type": "intermediate" },
-    { "id": "O1", "label": "Evidence-informed policy & practice", "type": "outcome" },
-    { "id": "O2", "label": "Social & economic benefits to Canadians", "type": "outcome" }
+    {
+      "id": "3b46e263-2e0b-8043-8331-f62220e01b55",
+      "label": "Increased public sector AI adoption",
+      "type": "intermediate"
+    },
+    {
+      "id": "3b46e263-2e0b-8099-bd0c-f3a34cb706d8",
+      "label": "Improved AI policy",
+      "type": "intermediate"
+    },
+    {
+      "id": "3b46e263-2e0b-80bc-89c2-ee5c96d278ed",
+      "label": "Appear in speaking engagements, panels, and media",
+      "type": "activity"
+    },
+    {
+      "id": "3b46e263-2e0b-804b-b852-dbbb72d59882",
+      "label": "Tell stories about the excellence of CIFAR’s AI research community",
+      "type": "activity"
+    },
+    {
+      "id": "3b46e263-2e0b-8088-b6e7-da635c39da18",
+      "label": "Serve on government and academic advisory bodies",
+      "type": "activity"
+    },
+    {
+      "id": "3b36e263-2e0b-80e1-a6c2-de64198f1c7c",
+      "label": "Improved AI adoption",
+      "type": "intermediate"
+    },
+    {
+      "id": "3b36e263-2e0b-8007-8b06-e6d20ef208a7",
+      "label": "Success stories from AI for All",
+      "type": "intermediate"
+    },
+    {
+      "id": "3b36e263-2e0b-808b-b7ea-f79de034d353",
+      "label": "Government of Canada appreciates CIFAR",
+      "type": "intermediate"
+    },
+    {
+      "id": "3b36e263-2e0b-80ae-8343-d9b5391a46b3",
+      "label": "CIFAR’s strength and stability",
+      "type": "outcome"
+    },
+    {
+      "id": "3b36e263-2e0b-80f3-9294-de6074b0c165",
+      "label": "Better connectedness within AI research community",
+      "type": "intermediate"
+    },
+    {
+      "id": "3b36e263-2e0b-800b-9121-f4333bcc43c4",
+      "label": "Increased diversity of Canada's AI community",
+      "type": "outcome"
+    },
+    {
+      "id": "3b36e263-2e0b-80fa-8ad6-c8c804c02fa6",
+      "label": "Advise government on AI policy",
+      "type": "intermediate"
+    },
+    {
+      "id": "3b36e263-2e0b-8026-bd91-f2a6b0604aa5",
+      "label": "Feelings of connectedness to Canada",
+      "type": "intermediate"
+    },
+    {
+      "id": "3b36e263-2e0b-80d6-8afb-cf9ae80f2423",
+      "label": "AI-friendly immigration policy",
+      "type": "intermediate"
+    },
+    {
+      "id": "3b36e263-2e0b-80a3-8d19-c90ed6789a1f",
+      "label": "Improved job opportunities in AI",
+      "type": "intermediate"
+    },
+    {
+      "id": "3b36e263-2e0b-8070-b6e1-edc07f916d1c",
+      "label": "Sponsor AI training for equity deserving community members",
+      "type": "activity"
+    },
+    {
+      "id": "3b36e263-2e0b-8083-92a3-cca8863b7840",
+      "label": "Increase Canadian’s comfort with AI",
+      "type": "intermediate"
+    },
+    {
+      "id": "3b36e263-2e0b-80c5-9916-d4c14f5db75d",
+      "label": "Hold AICan",
+      "type": "activity"
+    },
+    {
+      "id": "3b36e263-2e0b-8095-b0f4-e0fefc9d96d1",
+      "label": "Improve Canada's AI reputation",
+      "type": "intermediate"
+    },
+    {
+      "id": "3b36e263-2e0b-80fe-978c-f51dbb6f78a2",
+      "label": "New AI-driven products and services",
+      "type": "intermediate"
+    },
+    {
+      "id": "3b36e263-2e0b-8014-b871-f0987ee1af4b",
+      "label": "Canada CIFAR AI Chairs have enjoyable experiences",
+      "type": "intermediate"
+    },
+    {
+      "id": "3b36e263-2e0b-807c-914e-dacba3d69910",
+      "label": "Recruit and retain Canada CIFAR AI Chairs",
+      "type": "intermediate"
+    },
+    {
+      "id": "3b36e263-2e0b-8043-b4b0-cfee9368b5e3",
+      "label": "Hold AI Frontiers schools",
+      "type": "activity"
+    },
+    {
+      "id": "3b36e263-2e0b-8005-b6b1-fc57b3f0112f",
+      "label": "Distance CIFAR from LLMs and datacentres",
+      "type": "intermediate"
+    },
+    {
+      "id": "3b36e263-2e0b-80ce-b552-e9fd25348d77",
+      "label": "Tell stories about AI-enabled outcomes for Canadians",
+      "type": "activity"
+    },
+    {
+      "id": "3b36e263-2e0b-80ae-b985-e3bfba8ba955",
+      "label": "Provide Catalyst Fund grants",
+      "type": "activity"
+    },
+    {
+      "id": "3b36e263-2e0b-80cb-8af0-cfcd2ff41acb",
+      "label": "Better AI graduate retention in Canada",
+      "type": "intermediate"
+    },
+    {
+      "id": "3b36e263-2e0b-8031-8e76-d87ce9da16da",
+      "label": "Advance AI science",
+      "type": "intermediate"
+    },
+    {
+      "id": "3b36e263-2e0b-80fb-ba0d-c5c2cc969e4f",
+      "label": "Provide funding to Canada CIFAR AI Chairs",
+      "type": "activity"
+    },
+    {
+      "id": "3a66e263-2e0b-8080-95c3-d4625fa66daf",
+      "label": "Wage and employment growth",
+      "type": "intermediate"
+    },
+    {
+      "id": "3a66e263-2e0b-8018-801c-d64e328945f0",
+      "label": "Public sector knows what AI can do",
+      "type": "intermediate"
+    },
+    {
+      "id": "3a56e263-2e0b-803a-aafb-ff4cc631508c",
+      "label": "Better AI graduate training",
+      "type": "intermediate"
+    },
+    {
+      "id": "3a56e263-2e0b-8097-972d-f6a64d644018",
+      "label": "Better AI workers",
+      "type": "intermediate"
+    },
+    {
+      "id": "3a56e263-2e0b-8079-b004-d19436fff1b5",
+      "label": "Improved public services",
+      "type": "intermediate"
+    },
+    {
+      "id": "3a56e263-2e0b-80b1-8aa7-ec551d4c042d",
+      "label": "More competitive businesses",
+      "type": "intermediate"
+    },
+    {
+      "id": "3a56e263-2e0b-8015-b649-dc0f213eb55b",
+      "label": "Economic and social gains for Canada and Canadians",
+      "type": "outcome"
+    }
   ],
   "edges": [
-    { "source": "A1", "target": "I1" }, { "source": "A2", "target": "I1" },
-    { "source": "A2", "target": "I2" }, { "source": "A3", "target": "I2" },
-    { "source": "A3", "target": "I3" }, { "source": "I1", "target": "I4" },
-    { "source": "I2", "target": "I5" }, { "source": "I3", "target": "I5" },
-    { "source": "I3", "target": "I6" }, { "source": "I4", "target": "I7" },
-    { "source": "I4", "target": "I8" }, { "source": "I5", "target": "I7" },
-    { "source": "I5", "target": "I9" }, { "source": "I6", "target": "I9" },
-    { "source": "I7", "target": "I10" }, { "source": "I8", "target": "I10" },
-    { "source": "I7", "target": "I11" }, { "source": "I9", "target": "I12" },
-    { "source": "I10", "target": "I13" }, { "source": "I11", "target": "I14" },
-    { "source": "I12", "target": "I14" }, { "source": "I13", "target": "O1" },
-    { "source": "I13", "target": "O2" }, { "source": "I14", "target": "O2" }
+    {
+      "source": "3b46e263-2e0b-8043-8331-f62220e01b55",
+      "target": "3a56e263-2e0b-8079-b004-d19436fff1b5"
+    },
+    {
+      "source": "3b46e263-2e0b-8043-8331-f62220e01b55",
+      "target": "3b36e263-2e0b-80a3-8d19-c90ed6789a1f"
+    },
+    {
+      "source": "3b46e263-2e0b-8099-bd0c-f3a34cb706d8",
+      "target": "3b36e263-2e0b-80d6-8afb-cf9ae80f2423"
+    },
+    {
+      "source": "3b36e263-2e0b-80fa-8ad6-c8c804c02fa6",
+      "target": "3b46e263-2e0b-8099-bd0c-f3a34cb706d8"
+    },
+    {
+      "source": "3b46e263-2e0b-80bc-89c2-ee5c96d278ed",
+      "target": "3a66e263-2e0b-8018-801c-d64e328945f0"
+    },
+    {
+      "source": "3b46e263-2e0b-80bc-89c2-ee5c96d278ed",
+      "target": "3b36e263-2e0b-8083-92a3-cca8863b7840"
+    },
+    {
+      "source": "3b46e263-2e0b-804b-b852-dbbb72d59882",
+      "target": "3b36e263-2e0b-8095-b0f4-e0fefc9d96d1"
+    },
+    {
+      "source": "3b46e263-2e0b-8088-b6e7-da635c39da18",
+      "target": "3a66e263-2e0b-8018-801c-d64e328945f0"
+    },
+    {
+      "source": "3b36e263-2e0b-80e1-a6c2-de64198f1c7c",
+      "target": "3a56e263-2e0b-80b1-8aa7-ec551d4c042d"
+    },
+    {
+      "source": "3b36e263-2e0b-8083-92a3-cca8863b7840",
+      "target": "3b36e263-2e0b-80e1-a6c2-de64198f1c7c"
+    },
+    {
+      "source": "3b36e263-2e0b-8007-8b06-e6d20ef208a7",
+      "target": "3b36e263-2e0b-808b-b7ea-f79de034d353"
+    },
+    {
+      "source": "3b36e263-2e0b-80ce-b552-e9fd25348d77",
+      "target": "3b36e263-2e0b-8007-8b06-e6d20ef208a7"
+    },
+    {
+      "source": "3b36e263-2e0b-808b-b7ea-f79de034d353",
+      "target": "3b36e263-2e0b-80ae-8343-d9b5391a46b3"
+    },
+    {
+      "source": "3b36e263-2e0b-8031-8e76-d87ce9da16da",
+      "target": "3b36e263-2e0b-808b-b7ea-f79de034d353"
+    },
+    {
+      "source": "3b36e263-2e0b-8005-b6b1-fc57b3f0112f",
+      "target": "3b36e263-2e0b-80ae-8343-d9b5391a46b3"
+    },
+    {
+      "source": "3b36e263-2e0b-80f3-9294-de6074b0c165",
+      "target": "3b36e263-2e0b-8031-8e76-d87ce9da16da"
+    },
+    {
+      "source": "3b36e263-2e0b-80c5-9916-d4c14f5db75d",
+      "target": "3b36e263-2e0b-80f3-9294-de6074b0c165"
+    },
+    {
+      "source": "3b36e263-2e0b-8070-b6e1-edc07f916d1c",
+      "target": "3b36e263-2e0b-800b-9121-f4333bcc43c4"
+    },
+    {
+      "source": "3b36e263-2e0b-8026-bd91-f2a6b0604aa5",
+      "target": "3b36e263-2e0b-80cb-8af0-cfcd2ff41acb"
+    },
+    {
+      "source": "3b36e263-2e0b-80d6-8afb-cf9ae80f2423",
+      "target": "3b36e263-2e0b-80cb-8af0-cfcd2ff41acb"
+    },
+    {
+      "source": "3b36e263-2e0b-80a3-8d19-c90ed6789a1f",
+      "target": "3b36e263-2e0b-80cb-8af0-cfcd2ff41acb"
+    },
+    {
+      "source": "3a66e263-2e0b-8018-801c-d64e328945f0",
+      "target": "3b36e263-2e0b-80a3-8d19-c90ed6789a1f"
+    },
+    {
+      "source": "3b36e263-2e0b-80ce-b552-e9fd25348d77",
+      "target": "3b36e263-2e0b-8083-92a3-cca8863b7840"
+    },
+    {
+      "source": "3b36e263-2e0b-80c5-9916-d4c14f5db75d",
+      "target": "3b36e263-2e0b-8014-b871-f0987ee1af4b"
+    },
+    {
+      "source": "3b36e263-2e0b-8095-b0f4-e0fefc9d96d1",
+      "target": "3b36e263-2e0b-807c-914e-dacba3d69910"
+    },
+    {
+      "source": "3b36e263-2e0b-8031-8e76-d87ce9da16da",
+      "target": "3b36e263-2e0b-8095-b0f4-e0fefc9d96d1"
+    },
+    {
+      "source": "3b36e263-2e0b-807c-914e-dacba3d69910",
+      "target": "3b36e263-2e0b-8095-b0f4-e0fefc9d96d1"
+    },
+    {
+      "source": "3b36e263-2e0b-80fe-978c-f51dbb6f78a2",
+      "target": "3a56e263-2e0b-80b1-8aa7-ec551d4c042d"
+    },
+    {
+      "source": "3b36e263-2e0b-80fe-978c-f51dbb6f78a2",
+      "target": "3a56e263-2e0b-8079-b004-d19436fff1b5"
+    },
+    {
+      "source": "3b36e263-2e0b-8031-8e76-d87ce9da16da",
+      "target": "3b36e263-2e0b-80fe-978c-f51dbb6f78a2"
+    },
+    {
+      "source": "3b36e263-2e0b-8014-b871-f0987ee1af4b",
+      "target": "3b36e263-2e0b-807c-914e-dacba3d69910"
+    },
+    {
+      "source": "3b36e263-2e0b-80ae-b985-e3bfba8ba955",
+      "target": "3b36e263-2e0b-8014-b871-f0987ee1af4b"
+    },
+    {
+      "source": "3b36e263-2e0b-807c-914e-dacba3d69910",
+      "target": "3b36e263-2e0b-8031-8e76-d87ce9da16da"
+    },
+    {
+      "source": "3b36e263-2e0b-80fb-ba0d-c5c2cc969e4f",
+      "target": "3b36e263-2e0b-807c-914e-dacba3d69910"
+    },
+    {
+      "source": "3b36e263-2e0b-8043-b4b0-cfee9368b5e3",
+      "target": "3a56e263-2e0b-803a-aafb-ff4cc631508c"
+    },
+    {
+      "source": "3b36e263-2e0b-80ce-b552-e9fd25348d77",
+      "target": "3b36e263-2e0b-8005-b6b1-fc57b3f0112f"
+    },
+    {
+      "source": "3b36e263-2e0b-80ae-b985-e3bfba8ba955",
+      "target": "3b36e263-2e0b-8031-8e76-d87ce9da16da"
+    },
+    {
+      "source": "3b36e263-2e0b-80ae-b985-e3bfba8ba955",
+      "target": "3a56e263-2e0b-803a-aafb-ff4cc631508c"
+    },
+    {
+      "source": "3b36e263-2e0b-80cb-8af0-cfcd2ff41acb",
+      "target": "3a56e263-2e0b-8097-972d-f6a64d644018"
+    },
+    {
+      "source": "3b36e263-2e0b-80fb-ba0d-c5c2cc969e4f",
+      "target": "3b36e263-2e0b-8031-8e76-d87ce9da16da"
+    },
+    {
+      "source": "3a56e263-2e0b-803a-aafb-ff4cc631508c",
+      "target": "3b36e263-2e0b-8031-8e76-d87ce9da16da"
+    },
+    {
+      "source": "3b36e263-2e0b-80fb-ba0d-c5c2cc969e4f",
+      "target": "3a56e263-2e0b-803a-aafb-ff4cc631508c"
+    },
+    {
+      "source": "3a66e263-2e0b-8080-95c3-d4625fa66daf",
+      "target": "3a56e263-2e0b-8015-b649-dc0f213eb55b"
+    },
+    {
+      "source": "3a56e263-2e0b-803a-aafb-ff4cc631508c",
+      "target": "3a56e263-2e0b-8097-972d-f6a64d644018"
+    },
+    {
+      "source": "3a56e263-2e0b-8097-972d-f6a64d644018",
+      "target": "3a56e263-2e0b-80b1-8aa7-ec551d4c042d"
+    },
+    {
+      "source": "3a56e263-2e0b-8079-b004-d19436fff1b5",
+      "target": "3a56e263-2e0b-8015-b649-dc0f213eb55b"
+    },
+    {
+      "source": "3a56e263-2e0b-80b1-8aa7-ec551d4c042d",
+      "target": "3a56e263-2e0b-8015-b649-dc0f213eb55b"
+    }
   ]
 }

@@ -1,9 +1,11 @@
-// NOTE: property names/values are UNCONFIRMED assumptions — verify against the real Notion DB before first real export (Task 5 Steps 1 & 9).
+// NOTE: property names/values confirmed against the live Notion DB as of 2026-08-07
+// (Type options are Activity/Outcome/Intermediate; How=upstream, Why=downstream).
+// Property names may still drift if the DB schema changes later.
 export const DEFAULT_CONFIG = {
   titleProp: 'Name',
   typeProp: 'Type',
   activityValue: 'Activity',
-  outcomeValue: 'Ultimate outcome',
+  outcomeValue: 'Outcome',
   upstreamRelation: 'How',    // points to causes of this node
   downstreamRelation: 'Why',  // points to effects of this node
 };

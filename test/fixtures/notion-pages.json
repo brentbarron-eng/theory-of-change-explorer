@@ -11,7 +11,7 @@
     "Why":  { "relation": [ { "id": "p-out" } ] } } },
   { "id": "p-out", "properties": {
     "Name": { "title": [ { "plain_text": "Benefits to Canadians" } ] },
-    "Type": { "select": { "name": "Ultimate outcome" } },
+    "Type": { "select": { "name": "Outcome" } },
     "How":  { "relation": [ { "id": "p-mid" }, { "id": "p-ghost" } ] },
     "Why":  { "relation": [] } } }
 ]
