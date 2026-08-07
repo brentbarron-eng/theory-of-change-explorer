@@ -178,6 +178,18 @@ without hunting on the canvas.
   circuit — so a viewer can see "this reinforces itself." The traversal and
   cycle-detection needed to find loops already exist (`validateGraph` surfaces
   them as warnings; `computeTrace` handles them safely).
+- **Pinned end columns (Sankey-style layout)** (v2). Force ALL activities into a
+  single far-left column and ALL ultimate outcomes into a single far-right
+  column, regardless of causal depth — instead of the current dagre behavior
+  where a node's column follows its longest-path depth (so activities/outcomes
+  can spread across several columns today). Likely implementation: switch the
+  layout to **ELK** (via `cytoscape-elk`), which supports per-node layer
+  constraints (`layerConstraint: FIRST` / `LAST`) to pin the end columns; or
+  keep dagre and post-process node positions to snap activities to min-x and
+  outcomes to max-x. Trade-off to weigh: pinning the ends produces some long
+  edges that span many columns (an activity feeding a deep intermediate), which
+  is the accepted cost of the cleaner "start on the left, impact on the right"
+  reading.
 - In-app editing of the graph.
 - Live Notion sync.
 - Accounts / logins.
