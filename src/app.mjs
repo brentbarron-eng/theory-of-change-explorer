@@ -1,7 +1,10 @@
-import { dataToElements, computeTrace, directNeighbors } from './graph-model.mjs';
+import { dataToElements, computeTrace, directNeighbors, findLoopEdges } from './graph-model.mjs';
 
 const cytoscape = window.cytoscape;
 try { cytoscape.use(window.cytoscapeDagre); } catch { /* already registered */ }
+
+// Reinforcement-loop callout. Set to false to render loop edges as ordinary edges.
+const SHOW_LOOPS = true;
 
 const C = { activity: '#92C1E9', intermediate: '#D9D9D6', outcome: '#DA291C', up: '#92C1E9', down: '#F8E59A' };
 
@@ -18,6 +21,7 @@ const STYLE = [
   { selector: 'edge', style: {
       'width': 1, 'line-color': '#5a6b8c', 'opacity': 0.20, 'curve-style': 'bezier',
       'target-arrow-shape': 'triangle', 'target-arrow-color': '#5a6b8c', 'arrow-scale': 0.7 } },
+  { selector: 'edge.loop', style: { 'line-color': '#DA291C', 'line-style': 'dashed', 'target-arrow-color': '#DA291C', 'opacity': 0.75, 'width': 2 } },
   { selector: '.dim', style: { 'opacity': 0.08, 'text-opacity': 0 } },
   { selector: 'node.lit-sel', style: { 'text-opacity': 1, 'border-width': 3, 'border-color': '#ffffff', 'opacity': 1 } },
   { selector: 'node.lit-up', style: { 'text-opacity': 1, 'border-width': 3, 'border-color': C.up, 'opacity': 1 } },
@@ -58,6 +62,9 @@ try {
   });
   cy.nodes('.activity, .outcome').addClass('anchor');
   pinEnds(cy);
+  if (SHOW_LOOPS) {
+    for (const key of findLoopEdges(data)) cy.getElementById(key).addClass('loop');
+  }
   cy.fit(undefined, 40);
 } catch (err) {
   console.error(err);
