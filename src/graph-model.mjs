@@ -83,6 +83,30 @@ export function computeTrace(data, id) {
   return { ancestors: walk(parents), descendants: walk(children) };
 }
 
+export function findLoopEdges(data) {
+  const children = new Map();
+  for (const n of data.nodes) children.set(n.id, []);
+  for (const e of data.edges) if (children.has(e.source) && children.has(e.target)) children.get(e.source).push(e.target);
+  const canReach = (from, target) => {
+    const seen = new Set();
+    const stack = [from];
+    while (stack.length) {
+      const x = stack.pop();
+      if (x === target) return true;
+      if (seen.has(x)) continue;
+      seen.add(x);
+      for (const c of (children.get(x) || [])) stack.push(c);
+    }
+    return false;
+  };
+  const loops = new Set();
+  for (const e of data.edges) {
+    if (!children.has(e.source) || !children.has(e.target)) continue;
+    if (canReach(e.target, e.source)) loops.add(`${e.source}__${e.target}`);
+  }
+  return loops;
+}
+
 export function dataToElements(data) {
   const els = [];
   for (const n of data.nodes) els.push({ data: { id: n.id, label: n.label, type: n.type, description: n.description || '' }, classes: n.type });

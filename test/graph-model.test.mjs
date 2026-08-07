@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {
   NODE_TYPES, validateGraph, adjacency, directNeighbors, computeTrace, dataToElements,
 } from '../src/graph-model.mjs';
+import { findLoopEdges } from '../src/graph-model.mjs';
 
 const good = {
   nodes: [
@@ -117,4 +118,33 @@ test('invalid fixture is rejected', () => {
   const data = JSON.parse(readFileSync(new URL('./fixtures/invalid-graph.json', import.meta.url), 'utf8'));
   const r = validateGraph(data);
   assert.equal(r.ok, false);
+});
+
+test('findLoopEdges returns empty set for an acyclic graph', () => {
+  const g = {
+    nodes: [{id:'a',label:'a',type:'activity'},{id:'b',label:'b',type:'intermediate'},{id:'c',label:'c',type:'outcome'}],
+    edges: [{source:'a',target:'b'},{source:'b',target:'c'}],
+  };
+  assert.equal(findLoopEdges(g).size, 0);
+});
+
+test('findLoopEdges flags both edges of a 2-node cycle', () => {
+  const g = {
+    nodes: [{id:'a',label:'a',type:'intermediate'},{id:'b',label:'b',type:'intermediate'}],
+    edges: [{source:'a',target:'b'},{source:'b',target:'a'}],
+  };
+  const loops = findLoopEdges(g);
+  assert.ok(loops.has('a__b'));
+  assert.ok(loops.has('b__a'));
+  assert.equal(loops.size, 2);
+});
+
+test('findLoopEdges flags only the cycle edges in a mixed graph', () => {
+  // a -> b -> c -> b (b<->c cycle), plus a->b entering it and c->d leaving it
+  const g = {
+    nodes: ['a','b','c','d'].map(id => ({id,label:id,type:'intermediate'})),
+    edges: [{source:'a',target:'b'},{source:'b',target:'c'},{source:'c',target:'b'},{source:'c',target:'d'}],
+  };
+  const loops = findLoopEdges(g);
+  assert.deepEqual([...loops].sort(), ['b__c','c__b']);
 });
