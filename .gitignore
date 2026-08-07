@@ -5,6 +5,10 @@
 node_modules/
 npm-debug.log*
 
+# Secrets
+.env
+.env.local
+
 # OS / editor
 .DS_Store
 Thumbs.db
