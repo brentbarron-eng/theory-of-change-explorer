@@ -15,11 +15,15 @@ export function validateGraph(data) {
     if (!NODE_TYPES.includes(n.type)) errors.push(`node ${n.id} has invalid type: ${n.type}`);
   }
   const connected = new Set();
+  const edgeKeys = new Set();
   for (const e of data.edges) {
     if (!e || typeof e.source !== 'string' || typeof e.target !== 'string') { errors.push(`edge missing source/target: ${JSON.stringify(e)}`); continue; }
     if (!ids.has(e.source)) errors.push(`edge source not found: ${e.source}`);
     if (!ids.has(e.target)) errors.push(`edge target not found: ${e.target}`);
     if (e.source === e.target) errors.push(`self-loop on ${e.source}`);
+    const key = `${e.source}__${e.target}`;
+    if (edgeKeys.has(key)) errors.push(`duplicate edge: ${e.source} -> ${e.target}`);
+    edgeKeys.add(key);
     connected.add(e.source); connected.add(e.target);
   }
   for (const id of ids) if (!connected.has(id)) errors.push(`orphan node (no edges): ${id}`);

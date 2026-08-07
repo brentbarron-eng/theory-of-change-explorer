@@ -55,6 +55,15 @@ test('cycle is a warning, not an error', () => {
   assert.ok(r.warnings.some(w => /cycle/.test(w)));
 });
 
+test('duplicate edge fails', () => {
+  const r = validateGraph({
+    nodes: [{id:'a',label:'a',type:'activity'},{id:'b',label:'b',type:'outcome'}],
+    edges: [{source:'a',target:'b'},{source:'a',target:'b'}],
+  });
+  assert.equal(r.ok, false);
+  assert.ok(r.errors.some(e => e.includes('duplicate edge')));
+});
+
 test('orphan node fails', () => {
   const r = validateGraph({
     nodes:[{id:'a',label:'a',type:'activity'},{id:'b',label:'b',type:'outcome'},{id:'lonely',label:'l',type:'intermediate'}],

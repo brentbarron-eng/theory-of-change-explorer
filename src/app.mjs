@@ -26,21 +26,26 @@ const STYLE = [
   { selector: 'edge.e-down', style: { 'line-color': C.down, 'target-arrow-color': C.down, 'opacity': 0.9, 'width': 2 } },
 ];
 
-const res = await fetch('./data.json');
-const data = await res.json();
+let data, cy;
+try {
+  const res = await fetch('./data.json');
+  if (!res.ok) throw new Error(`failed to fetch data.json: ${res.status}`);
+  data = await res.json();
 
-const cy = cytoscape({
-  container: document.getElementById('cy'),
-  elements: dataToElements(data),
-  style: STYLE,
-  layout: { name: 'dagre', rankDir: 'LR', nodeSep: 40, rankSep: 90, edgeSep: 10 },
-  wheelSensitivity: 0.2,
-});
-cy.nodes('.activity, .outcome').addClass('anchor');
-cy.fit(undefined, 40);
-
-window.__cy = cy;      // for manual QA + Task 4
-window.__data = data;
+  cy = cytoscape({
+    container: document.getElementById('cy'),
+    elements: dataToElements(data),
+    style: STYLE,
+    layout: { name: 'dagre', rankDir: 'LR', nodeSep: 40, rankSep: 90, edgeSep: 10 },
+    wheelSensitivity: 0.2,
+  });
+  cy.nodes('.activity, .outcome').addClass('anchor');
+  cy.fit(undefined, 40);
+} catch (err) {
+  console.error(err);
+  document.getElementById('cy').textContent = 'Could not load data.json — see console.';
+  throw err;
+}
 
 // ---------- Panel ----------
 const TYPE_NAME = { activity: 'Activity', intermediate: 'Intermediate effect', outcome: 'Ultimate outcome' };
@@ -126,5 +131,3 @@ function trySearch() {
 }
 search.addEventListener('change', trySearch);
 search.addEventListener('keydown', (e) => { if (e.key === 'Enter') trySearch(); });
-
-window.__select = selectNode;
