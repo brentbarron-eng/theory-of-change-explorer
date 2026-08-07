@@ -148,3 +148,9 @@ test('findLoopEdges flags only the cycle edges in a mixed graph', () => {
   const loops = findLoopEdges(g);
   assert.deepEqual([...loops].sort(), ['b__c','c__b']);
 });
+
+test('findLoopEdges detects the reinforcement loop in shipped data.json', () => {
+  const data = JSON.parse(readFileSync(new URL('../data.json', import.meta.url), 'utf8'));
+  const loops = findLoopEdges(data);
+  assert.ok(loops.size >= 2, `expected the shipped data to contain a reinforcement loop, got ${loops.size} loop edges`);
+});

@@ -47,6 +47,32 @@ function pinEnds(cy) {
   spread(cy.nodes('.outcome'), rightX);
 }
 
+// ---------- Cosmetic password gate (NOT security: the site is public) ----------
+const GATE_PASSWORD = 'Dolly';
+(function initGate() {
+  const gate = document.getElementById('gate');
+  if (!gate) return;
+  if (sessionStorage.getItem('toc_unlocked') === '1') { gate.remove(); return; }
+  const input = document.getElementById('gate-input');
+  const card = gate.querySelector('.gate-card');
+  const msg = document.getElementById('gate-msg');
+  const submit = () => {
+    if (input.value === GATE_PASSWORD) {
+      sessionStorage.setItem('toc_unlocked', '1');
+      gate.classList.add('hidden');
+      setTimeout(() => gate.remove(), 450);
+    } else {
+      msg.textContent = 'Incorrect password';
+      card.classList.add('shake');
+      setTimeout(() => card.classList.remove('shake'), 500);
+      input.select();
+    }
+  };
+  document.getElementById('gate-enter').onclick = submit;
+  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') submit(); });
+  input.focus();
+})();
+
 let data, cy;
 try {
   const res = await fetch('./data.json');
@@ -156,29 +182,3 @@ function trySearch() {
 }
 search.addEventListener('change', trySearch);
 search.addEventListener('keydown', (e) => { if (e.key === 'Enter') trySearch(); });
-
-// ---------- Cosmetic password gate (NOT security: the site is public) ----------
-const GATE_PASSWORD = 'Dolly';
-(function initGate() {
-  const gate = document.getElementById('gate');
-  if (!gate) return;
-  if (sessionStorage.getItem('toc_unlocked') === '1') { gate.remove(); return; }
-  const input = document.getElementById('gate-input');
-  const card = gate.querySelector('.gate-card');
-  const msg = document.getElementById('gate-msg');
-  const submit = () => {
-    if (input.value === GATE_PASSWORD) {
-      sessionStorage.setItem('toc_unlocked', '1');
-      gate.classList.add('hidden');
-      setTimeout(() => gate.remove(), 450);
-    } else {
-      msg.textContent = 'Incorrect password';
-      card.classList.add('shake');
-      setTimeout(() => card.classList.remove('shake'), 500);
-      input.select();
-    }
-  };
-  document.getElementById('gate-enter').onclick = submit;
-  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') submit(); });
-  input.focus();
-})();
