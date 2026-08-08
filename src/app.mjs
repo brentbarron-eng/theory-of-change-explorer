@@ -122,6 +122,9 @@ function renderPanel(id) {
   const desc = document.getElementById('p-desc');
   desc.textContent = n.description || '';
   desc.hidden = !n.description;
+  const metricBox = document.getElementById('p-metric');
+  document.getElementById('p-metric-text').textContent = n.metric || '';
+  metricBox.hidden = !n.metric;
   const { parents, children } = directNeighbors(data, id);
   const pp = document.getElementById('p-parents');
   const pc = document.getElementById('p-children');

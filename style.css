@@ -84,3 +84,7 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opac
 .gate-msg{margin-top:16px;font-size:12px;color:#ff6a5c;min-height:16px}
 @keyframes gate-shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
 .gate-card.shake{animation:gate-shake .45s}
+.metric{margin:14px 0 4px}
+.metric[hidden]{display:none}
+.metric-label{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);font-weight:700;margin-bottom:4px}
+#p-metric-text{font-size:13px;color:#c8d3df;line-height:1.5}
