@@ -1,4 +1,4 @@
-import { dataToElements, computeTrace, directNeighbors, findLoopEdges } from './graph-model.mjs';
+import { dataToElements, computeTrace, directNeighbors, findLoopEdges, computeNodePrograms } from './graph-model.mjs';
 
 const cytoscape = window.cytoscape;
 try { cytoscape.use(window.cytoscapeDagre); } catch { /* already registered */ }
@@ -75,6 +75,8 @@ const GATE_PASSWORD = 'Dolly';
 })();
 
 let data, cy;
+let applyFilter, nodePrograms, programFilter, nodeVisibleUnderFilter;
+const OUT_OF_SCOPE = 'Out of Scope';
 try {
   const res = await fetch('./data.json');
   if (!res.ok) throw new Error(`failed to fetch data.json: ${res.status}`);
@@ -92,6 +94,46 @@ try {
   if (SHOW_LOOPS) {
     for (const key of findLoopEdges(data)) cy.getElementById(key).addClass('loop');
   }
+
+  // ---------- Program filter ----------
+  nodePrograms = computeNodePrograms(data); // Map<id, Set<program>>
+  const programList = [...new Set([...nodePrograms.values()].flatMap(s => [...s]))].sort();
+  const hasOutOfScope = [...nodePrograms.values()].some(s => s.size === 0);
+  const filterOptions = hasOutOfScope ? [...programList, OUT_OF_SCOPE] : programList;
+  programFilter = new Set(filterOptions); // all checked by default
+
+  nodeVisibleUnderFilter = function (id) {
+    const set = nodePrograms.get(id) || new Set();
+    if (set.size === 0) return programFilter.has(OUT_OF_SCOPE);
+    for (const p of set) if (programFilter.has(p)) return true;
+    return false;
+  };
+  applyFilter = function () {
+    cy.batch(() => {
+      cy.nodes().forEach(n => n.style('display', nodeVisibleUnderFilter(n.id()) ? 'element' : 'none'));
+      cy.edges().forEach(e => {
+        const vis = nodeVisibleUnderFilter(e.source().id()) && nodeVisibleUnderFilter(e.target().id());
+        e.style('display', vis ? 'element' : 'none');
+      });
+    });
+    cy.fit(cy.elements(':visible'), 40);
+  };
+
+  // build checkboxes
+  const boxes = document.getElementById('filter-boxes');
+  for (const opt of filterOptions) {
+    const label = document.createElement('label');
+    const cb = document.createElement('input');
+    cb.type = 'checkbox'; cb.checked = true; cb.value = opt;
+    cb.addEventListener('change', () => {
+      if (cb.checked) programFilter.add(opt); else programFilter.delete(opt);
+      applyFilter();
+    });
+    label.appendChild(cb);
+    label.appendChild(document.createTextNode(opt));
+    boxes.appendChild(label);
+  }
+
   cy.fit(undefined, 40);
 } catch (err) {
   console.error(err);
