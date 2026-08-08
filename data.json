@@ -1,6 +1,20 @@
 {
   "nodes": [
     {
+      "id": "3b66e263-2e0b-80ab-80eb-d9bb6711639a",
+      "label": "Launch Solution Networks",
+      "type": "activity",
+      "programs": [
+        "CAISI",
+        "Applied AI Research"
+      ]
+    },
+    {
+      "id": "3b66e263-2e0b-8058-90c7-d43b6ce890b1",
+      "label": "Improve CIFAR visibility",
+      "type": "intermediate"
+    },
+    {
       "id": "3b46e263-2e0b-8043-8331-f62220e01b55",
       "label": "Increased public sector AI adoption",
       "type": "intermediate"
@@ -13,17 +27,19 @@
     {
       "id": "3b46e263-2e0b-80bc-89c2-ee5c96d278ed",
       "label": "Appear in speaking engagements, panels, and media",
-      "type": "activity"
+      "type": "activity",
+      "metric": "# of appearances",
+      "programs": [
+        "AI Communications"
+      ]
     },
     {
       "id": "3b46e263-2e0b-804b-b852-dbbb72d59882",
       "label": "Tell stories about the excellence of CIFAR’s AI research community",
-      "type": "activity"
-    },
-    {
-      "id": "3b46e263-2e0b-8088-b6e7-da635c39da18",
-      "label": "Serve on government and academic advisory bodies",
-      "type": "activity"
+      "type": "activity",
+      "programs": [
+        "AI Communications"
+      ]
     },
     {
       "id": "3b36e263-2e0b-80e1-a6c2-de64198f1c7c",
@@ -58,7 +74,11 @@
     {
       "id": "3b36e263-2e0b-80fa-8ad6-c8c804c02fa6",
       "label": "Advise government on AI policy",
-      "type": "intermediate"
+      "type": "activity",
+      "programs": [
+        "CAISI",
+        "AI Policy"
+      ]
     },
     {
       "id": "3b36e263-2e0b-8026-bd91-f2a6b0604aa5",
@@ -78,7 +98,10 @@
     {
       "id": "3b36e263-2e0b-8070-b6e1-edc07f916d1c",
       "label": "Sponsor AI training for equity deserving community members",
-      "type": "activity"
+      "type": "activity",
+      "programs": [
+        "Next Gen"
+      ]
     },
     {
       "id": "3b36e263-2e0b-8083-92a3-cca8863b7840",
@@ -88,7 +111,12 @@
     {
       "id": "3b36e263-2e0b-80c5-9916-d4c14f5db75d",
       "label": "Hold AICan",
-      "type": "activity"
+      "type": "activity",
+      "description": "CIFAR’s flagship convening of Canada CIFAR AI Chairs from across the country",
+      "metric": "# of attendees",
+      "programs": [
+        "Canada CIFAR AI Chairs"
+      ]
     },
     {
       "id": "3b36e263-2e0b-8095-b0f4-e0fefc9d96d1",
@@ -113,7 +141,10 @@
     {
       "id": "3b36e263-2e0b-8043-b4b0-cfee9368b5e3",
       "label": "Hold AI Frontiers schools",
-      "type": "activity"
+      "type": "activity",
+      "programs": [
+        "Next Gen"
+      ]
     },
     {
       "id": "3b36e263-2e0b-8005-b6b1-fc57b3f0112f",
@@ -123,17 +154,27 @@
     {
       "id": "3b36e263-2e0b-80ce-b552-e9fd25348d77",
       "label": "Tell stories about AI-enabled outcomes for Canadians",
-      "type": "activity"
+      "type": "activity",
+      "programs": [
+        "AI Communications"
+      ]
     },
     {
       "id": "3b36e263-2e0b-80ae-b985-e3bfba8ba955",
       "label": "Provide Catalyst Fund grants",
-      "type": "activity"
+      "type": "activity",
+      "programs": [
+        "Canada CIFAR AI Chairs",
+        "Applied AI Research",
+        "CAISI"
+      ]
     },
     {
       "id": "3b36e263-2e0b-80cb-8af0-cfcd2ff41acb",
       "label": "Better AI graduate retention in Canada",
-      "type": "intermediate"
+      "type": "intermediate",
+      "description": "AI graduate students are the biggest intellectual property asset that Canada has in the AI race",
+      "metric": "% of trainees in Canada after 2 years"
     },
     {
       "id": "3b36e263-2e0b-8031-8e76-d87ce9da16da",
@@ -143,7 +184,10 @@
     {
       "id": "3b36e263-2e0b-80fb-ba0d-c5c2cc969e4f",
       "label": "Provide funding to Canada CIFAR AI Chairs",
-      "type": "activity"
+      "type": "activity",
+      "programs": [
+        "Canada CIFAR AI Chairs"
+      ]
     },
     {
       "id": "3a66e263-2e0b-8080-95c3-d4625fa66daf",
@@ -162,7 +206,7 @@
     },
     {
       "id": "3a56e263-2e0b-8097-972d-f6a64d644018",
-      "label": "Better AI workers",
+      "label": "More and better AI workers",
       "type": "intermediate"
     },
     {
@@ -183,12 +227,32 @@
   ],
   "edges": [
     {
+      "source": "3b66e263-2e0b-80ab-80eb-d9bb6711639a",
+      "target": "3b36e263-2e0b-80fe-978c-f51dbb6f78a2"
+    },
+    {
+      "source": "3b66e263-2e0b-80ab-80eb-d9bb6711639a",
+      "target": "3b36e263-2e0b-8007-8b06-e6d20ef208a7"
+    },
+    {
+      "source": "3b66e263-2e0b-8058-90c7-d43b6ce890b1",
+      "target": "3b36e263-2e0b-808b-b7ea-f79de034d353"
+    },
+    {
+      "source": "3b36e263-2e0b-80fa-8ad6-c8c804c02fa6",
+      "target": "3b66e263-2e0b-8058-90c7-d43b6ce890b1"
+    },
+    {
       "source": "3b46e263-2e0b-8043-8331-f62220e01b55",
       "target": "3a56e263-2e0b-8079-b004-d19436fff1b5"
     },
     {
       "source": "3b46e263-2e0b-8043-8331-f62220e01b55",
       "target": "3b36e263-2e0b-80a3-8d19-c90ed6789a1f"
+    },
+    {
+      "source": "3a66e263-2e0b-8018-801c-d64e328945f0",
+      "target": "3b46e263-2e0b-8043-8331-f62220e01b55"
     },
     {
       "source": "3b46e263-2e0b-8099-bd0c-f3a34cb706d8",
@@ -211,8 +275,8 @@
       "target": "3b36e263-2e0b-8095-b0f4-e0fefc9d96d1"
     },
     {
-      "source": "3b46e263-2e0b-8088-b6e7-da635c39da18",
-      "target": "3a66e263-2e0b-8018-801c-d64e328945f0"
+      "source": "3b46e263-2e0b-804b-b852-dbbb72d59882",
+      "target": "3b36e263-2e0b-808b-b7ea-f79de034d353"
     },
     {
       "source": "3b36e263-2e0b-80e1-a6c2-de64198f1c7c",
@@ -239,6 +303,10 @@
       "target": "3b36e263-2e0b-808b-b7ea-f79de034d353"
     },
     {
+      "source": "3b36e263-2e0b-80fa-8ad6-c8c804c02fa6",
+      "target": "3b36e263-2e0b-808b-b7ea-f79de034d353"
+    },
+    {
       "source": "3b36e263-2e0b-8005-b6b1-fc57b3f0112f",
       "target": "3b36e263-2e0b-80ae-8343-d9b5391a46b3"
     },
@@ -247,7 +315,15 @@
       "target": "3b36e263-2e0b-8031-8e76-d87ce9da16da"
     },
     {
+      "source": "3b36e263-2e0b-80f3-9294-de6074b0c165",
+      "target": "3b36e263-2e0b-8026-bd91-f2a6b0604aa5"
+    },
+    {
       "source": "3b36e263-2e0b-80c5-9916-d4c14f5db75d",
+      "target": "3b36e263-2e0b-80f3-9294-de6074b0c165"
+    },
+    {
+      "source": "3b36e263-2e0b-8070-b6e1-edc07f916d1c",
       "target": "3b36e263-2e0b-80f3-9294-de6074b0c165"
     },
     {
@@ -269,6 +345,14 @@
     {
       "source": "3a66e263-2e0b-8018-801c-d64e328945f0",
       "target": "3b36e263-2e0b-80a3-8d19-c90ed6789a1f"
+    },
+    {
+      "source": "3b36e263-2e0b-8070-b6e1-edc07f916d1c",
+      "target": "3a56e263-2e0b-8097-972d-f6a64d644018"
+    },
+    {
+      "source": "3b36e263-2e0b-8070-b6e1-edc07f916d1c",
+      "target": "3a56e263-2e0b-803a-aafb-ff4cc631508c"
     },
     {
       "source": "3b36e263-2e0b-80ce-b552-e9fd25348d77",
