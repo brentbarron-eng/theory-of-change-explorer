@@ -94,3 +94,6 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opac
 #filter-boxes{display:flex;flex-wrap:wrap;gap:6px 14px}
 #filter-boxes label{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#cdd7ee;cursor:pointer;white-space:nowrap}
 #filter-boxes input{accent-color:var(--red);cursor:pointer}
+#focus-btn{margin:12px 0 4px;background:var(--red);color:#fff;border:none;border-radius:8px;
+  padding:8px 14px;font-size:12.5px;font-weight:700;font-family:inherit;cursor:pointer;letter-spacing:.02em}
+#focus-btn:hover{background:#f0392b}

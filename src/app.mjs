@@ -31,9 +31,9 @@ const STYLE = [
   { selector: 'edge.e-down', style: { 'line-color': C.down, 'target-arrow-color': C.down, 'opacity': 0.95, 'width': 2 } },
 ];
 
-function pinEnds(cy) {
-  const xs = cy.nodes().map(n => n.position('x'));
-  const ys = cy.nodes().map(n => n.position('y'));
+function pinEnds(cy, nodes = cy.nodes()) {
+  const xs = nodes.map(n => n.position('x'));
+  const ys = nodes.map(n => n.position('y'));
   const leftX = Math.min(...xs), rightX = Math.max(...xs);
   const top = Math.min(...ys), bottom = Math.max(...ys);
   const spread = (group, x) => {
@@ -44,8 +44,8 @@ function pinEnds(cy) {
       node.position({ x, y });
     });
   };
-  spread(cy.nodes('.activity'), leftX);
-  spread(cy.nodes('.outcome'), rightX);
+  spread(nodes.filter('.activity'), leftX);
+  spread(nodes.filter('.outcome'), rightX);
 }
 
 // ---------- Cosmetic password gate (NOT security: the site is public) ----------
@@ -75,6 +75,7 @@ const GATE_PASSWORD = 'Dolly';
 })();
 
 let data, cy;
+let currentId = null;
 let applyFilter, nodePrograms, programFilter, nodeVisibleUnderFilter;
 const OUT_OF_SCOPE = 'Out of Scope';
 try {
@@ -181,6 +182,7 @@ function renderPanel(id) {
 
 // ---------- Selection ----------
 function selectNode(id) {
+  currentId = id;
   const { ancestors, descendants } = computeTrace(data, id);
   const up = new Set([id, ...ancestors]);
   const down = new Set([id, ...descendants]);
@@ -201,6 +203,7 @@ function selectNode(id) {
   renderPanel(id);
   const node = cy.getElementById(id);
   cy.animate({ center: { eles: node } }, { duration: 250 });
+  if (focused) focusOn(id);
 }
 
 function clearSelection() {
@@ -228,3 +231,39 @@ function trySearch() {
 }
 search.addEventListener('change', trySearch);
 search.addEventListener('keydown', (e) => { if (e.key === 'Enter') trySearch(); });
+
+// ---------- Focus mode (isolate the selected node's chain; ignores the program filter) ----------
+let focused = false;
+let focusedId = null;
+
+function focusOn(id) {
+  const { ancestors, descendants } = computeTrace(data, id);
+  const chain = new Set([id, ...ancestors, ...descendants]);
+  cy.batch(() => {
+    cy.nodes().forEach(n => n.style('display', chain.has(n.id()) ? 'element' : 'none'));
+    cy.edges().forEach(e => {
+      const vis = chain.has(e.source().id()) && chain.has(e.target().id());
+      e.style('display', vis ? 'element' : 'none');
+    });
+  });
+  const visible = cy.nodes(':visible');
+  visible.layout({ name: 'dagre', rankDir: 'LR', nodeSep: 40, rankSep: 90, edgeSep: 10 }).run();
+  pinEnds(cy, visible);
+  cy.fit(cy.elements(':visible'), 40);
+  focused = true; focusedId = id;
+  document.getElementById('focus-btn').textContent = 'Exit focus';
+}
+
+function exitFocus() {
+  focused = false; focusedId = null;
+  cy.nodes().layout({ name: 'dagre', rankDir: 'LR', nodeSep: 40, rankSep: 90, edgeSep: 10 }).run();
+  pinEnds(cy);
+  applyFilter();            // restore the program filter's visibility
+  cy.fit(cy.elements(':visible'), 40);
+  document.getElementById('focus-btn').textContent = 'Focus';
+}
+
+document.getElementById('focus-btn').onclick = () => {
+  if (focused) { exitFocus(); return; }
+  if (currentId) focusOn(currentId);
+};
