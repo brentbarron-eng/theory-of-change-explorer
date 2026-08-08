@@ -8,16 +8,24 @@ export const DEFAULT_CONFIG = {
   outcomeValue: 'Outcome',
   upstreamRelation: 'How',    // points to causes of this node
   downstreamRelation: 'Why',  // points to effects of this node
+  descriptionProp: 'Description',
+  metricProp: 'Metric',
+  programProp: 'Program',
 };
 
 export function notionToGraph(pages, config = {}) {
   const cfg = { ...DEFAULT_CONFIG, ...config };
   const ids = new Set(pages.map(p => p.id));
-  const nodes = pages.map(p => ({
-    id: p.id,
-    label: plainTitle(p, cfg.titleProp),
-    type: typeOf(p, cfg),
-  }));
+  const nodes = pages.map(p => {
+    const node = { id: p.id, label: plainTitle(p, cfg.titleProp), type: typeOf(p, cfg) };
+    const description = plainRich(p, cfg.descriptionProp);
+    const metric = plainRich(p, cfg.metricProp);
+    const programs = multiSelectNames(p, cfg.programProp);
+    if (description) node.description = description;
+    if (metric) node.metric = metric;
+    if (programs.length) node.programs = programs;
+    return node;
+  });
   const seen = new Set();
   const edges = [];
   const add = (s, t) => {
@@ -35,6 +43,14 @@ export function notionToGraph(pages, config = {}) {
 function plainTitle(p, prop) {
   const t = p.properties?.[prop]?.title || [];
   return t.map(x => x.plain_text).join('').trim();
+}
+
+function plainRich(p, prop) {
+  return (p.properties?.[prop]?.rich_text || []).map(x => x.plain_text).join('').trim();
+}
+
+function multiSelectNames(p, prop) {
+  return (p.properties?.[prop]?.multi_select || []).map(o => o.name);
 }
 
 function typeOf(p, cfg) {

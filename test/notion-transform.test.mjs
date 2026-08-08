@@ -31,3 +31,19 @@ test('output validates as a graph', () => {
   const r = validateGraph(notionToGraph(pages));
   assert.equal(r.ok, true, r.errors.join('; '));
 });
+
+test('notionToGraph extracts description, metric, and programs', () => {
+  const { nodes } = notionToGraph(pages);
+  const mid = nodes.find(n => n.id === 'p-mid');
+  assert.equal(mid.description, 'Collaboration description.');
+  assert.equal(mid.metric, '# of joint projects');
+  assert.deepEqual(mid.programs, ['AI Policy', 'CAISI']);
+});
+
+test('notionToGraph omits empty description/metric/programs', () => {
+  const { nodes } = notionToGraph(pages);
+  const act = nodes.find(n => n.id === 'p-act');
+  assert.equal('description' in act, false);
+  assert.equal('metric' in act, false);
+  assert.equal('programs' in act, false);
+});

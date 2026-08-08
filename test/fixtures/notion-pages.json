@@ -8,7 +8,10 @@
     "Name": { "title": [ { "plain_text": "Collaborations form" } ] },
     "Type": { "select": null },
     "How":  { "relation": [ { "id": "p-act" } ] },
-    "Why":  { "relation": [ { "id": "p-out" } ] } } },
+    "Why":  { "relation": [ { "id": "p-out" } ] },
+    "Description": { "rich_text": [ { "plain_text": "Collaboration description." } ] },
+    "Metric": { "rich_text": [ { "plain_text": "# of joint projects" } ] },
+    "Program": { "multi_select": [ { "name": "AI Policy" }, { "name": "CAISI" } ] } } },
   { "id": "p-out", "properties": {
     "Name": { "title": [ { "plain_text": "Benefits to Canadians" } ] },
     "Type": { "select": { "name": "Outcome" } },
