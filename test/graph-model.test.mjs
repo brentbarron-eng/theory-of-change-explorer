@@ -65,12 +65,14 @@ test('duplicate edge fails', () => {
   assert.ok(r.errors.some(e => e.includes('duplicate edge')));
 });
 
-test('orphan node fails', () => {
+test('orphan node is a warning, not an error', () => {
   const r = validateGraph({
     nodes:[{id:'a',label:'a',type:'activity'},{id:'b',label:'b',type:'outcome'},{id:'lonely',label:'l',type:'intermediate'}],
     edges:[{source:'a',target:'b'}],
   });
-  assert.ok(r.errors.some(e => e.includes('orphan node (no edges): lonely')));
+  assert.equal(r.ok, true, r.errors.join('; '));
+  assert.ok(r.warnings.some(w => w.includes('orphan node (no edges): lonely')));
+  assert.ok(!r.errors.some(e => e.includes('orphan')));
 });
 
 test('adjacency builds parents and children', () => {
@@ -153,4 +155,48 @@ test('findLoopEdges detects the reinforcement loop in shipped data.json', () => 
   const data = JSON.parse(readFileSync(new URL('../data.json', import.meta.url), 'utf8'));
   const loops = findLoopEdges(data);
   assert.ok(loops.size >= 2, `expected the shipped data to contain a reinforcement loop, got ${loops.size} loop edges`);
+});
+
+import { computeNodePrograms } from '../src/graph-model.mjs';
+
+test('computeNodePrograms: activity carries its own programs', () => {
+  const g = { nodes:[{id:'a',label:'a',type:'activity',programs:['P1']}], edges:[] };
+  assert.deepEqual([...computeNodePrograms(g).get('a')], ['P1']);
+});
+
+test('computeNodePrograms: descendants inherit the reaching activity programs', () => {
+  const g = {
+    nodes:[{id:'a',label:'a',type:'activity',programs:['P1']},{id:'m',label:'m',type:'intermediate'},{id:'o',label:'o',type:'outcome'}],
+    edges:[{source:'a',target:'m'},{source:'m',target:'o'}],
+  };
+  const r = computeNodePrograms(g);
+  assert.deepEqual([...r.get('m')], ['P1']);
+  assert.deepEqual([...r.get('o')], ['P1']);
+});
+
+test('computeNodePrograms: a node reached by two programs gets the union', () => {
+  const g = {
+    nodes:[
+      {id:'a1',label:'a1',type:'activity',programs:['P1']},
+      {id:'a2',label:'a2',type:'activity',programs:['P2']},
+      {id:'m',label:'m',type:'intermediate'},
+    ],
+    edges:[{source:'a1',target:'m'},{source:'a2',target:'m'}],
+  };
+  assert.deepEqual([...computeNodePrograms(g).get('m')].sort(), ['P1','P2']);
+});
+
+test('computeNodePrograms: node reachable from no tagged activity is empty (Out of Scope)', () => {
+  const g = {
+    nodes:[{id:'a',label:'a',type:'activity'},{id:'m',label:'m',type:'intermediate'}],
+    edges:[{source:'a',target:'m'}],
+  };
+  const r = computeNodePrograms(g);
+  assert.equal(r.get('a').size, 0);
+  assert.equal(r.get('m').size, 0);
+});
+
+test('validateGraph: non-array programs is an error', () => {
+  const g = { nodes:[{id:'a',label:'a',type:'activity',programs:'P1'}], edges:[{source:'a',target:'a'}] };
+  assert.ok(validateGraph(g).errors.some(e => e.includes('programs')));
 });

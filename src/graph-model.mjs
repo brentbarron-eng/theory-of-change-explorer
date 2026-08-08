@@ -13,6 +13,8 @@ export function validateGraph(data) {
     ids.add(n.id);
     if (typeof n.label !== 'string' || n.label === '') errors.push(`node ${n.id} missing label`);
     if (!NODE_TYPES.includes(n.type)) errors.push(`node ${n.id} has invalid type: ${n.type}`);
+    if (n.programs !== undefined && (!Array.isArray(n.programs) || n.programs.some(p => typeof p !== 'string')))
+      errors.push(`node ${n.id} has invalid programs (must be a string array)`);
   }
   const connected = new Set();
   const edgeKeys = new Set();
@@ -26,7 +28,7 @@ export function validateGraph(data) {
     edgeKeys.add(key);
     connected.add(e.source); connected.add(e.target);
   }
-  for (const id of ids) if (!connected.has(id)) errors.push(`orphan node (no edges): ${id}`);
+  for (const id of ids) if (!connected.has(id)) warnings.push(`orphan node (no edges): ${id}`);
   const cycle = findCycle(data);
   if (cycle) warnings.push(`cycle detected: ${cycle.join(' -> ')}`);
   return { ok: errors.length === 0, errors, warnings };
@@ -81,6 +83,25 @@ export function computeTrace(data, id) {
     return seen;
   };
   return { ancestors: walk(parents), descendants: walk(children) };
+}
+
+export function computeNodePrograms(data) {
+  const { children } = adjacency(data);
+  const result = new Map(data.nodes.map(n => [n.id, new Set()]));
+  for (const n of data.nodes) {
+    if (n.type !== 'activity' || !Array.isArray(n.programs) || n.programs.length === 0) continue;
+    const stack = [n.id];
+    const seen = new Set();
+    while (stack.length) {
+      const x = stack.pop();
+      if (seen.has(x)) continue;
+      seen.add(x);
+      const set = result.get(x);
+      if (set) for (const p of n.programs) set.add(p);
+      for (const c of (children.get(x) || [])) stack.push(c);
+    }
+  }
+  return result;
 }
 
 export function findLoopEdges(data) {
