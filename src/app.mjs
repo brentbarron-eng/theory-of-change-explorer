@@ -246,9 +246,8 @@ function focusOn(id) {
       e.style('display', vis ? 'element' : 'none');
     });
   });
-  const visible = cy.nodes(':visible');
-  visible.layout({ name: 'dagre', rankDir: 'LR', nodeSep: 40, rankSep: 90, edgeSep: 10 }).run();
-  pinEnds(cy, visible);
+  cy.elements(':visible').layout({ name: 'dagre', rankDir: 'LR', nodeSep: 40, rankSep: 90, edgeSep: 10 }).run();
+  pinEnds(cy, cy.nodes(':visible'));
   cy.fit(cy.elements(':visible'), 40);
   focused = true;
   document.getElementById('focus-btn').textContent = 'Exit focus';
@@ -256,7 +255,7 @@ function focusOn(id) {
 
 function exitFocus() {
   focused = false;
-  cy.nodes().layout({ name: 'dagre', rankDir: 'LR', nodeSep: 40, rankSep: 90, edgeSep: 10 }).run();
+  cy.elements().layout({ name: 'dagre', rankDir: 'LR', nodeSep: 40, rankSep: 90, edgeSep: 10 }).run();
   pinEnds(cy);
   applyFilter();            // restore the program filter's visibility
   cy.fit(cy.elements(':visible'), 40);
