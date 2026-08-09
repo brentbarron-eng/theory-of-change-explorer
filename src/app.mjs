@@ -248,7 +248,8 @@ function focusOn(id) {
   });
   cy.elements(':visible').layout({ name: 'dagre', rankDir: 'LR', nodeSep: 40, rankSep: 90, edgeSep: 10 }).run();
   pinEnds(cy, cy.nodes(':visible'));
-  cy.fit(cy.elements(':visible'), 40);
+  cy.stop();
+  cy.fit(cy.elements(':visible'), 50);
   focused = true;
   document.getElementById('focus-btn').textContent = 'Exit focus';
 }
@@ -258,6 +259,7 @@ function exitFocus() {
   cy.elements().layout({ name: 'dagre', rankDir: 'LR', nodeSep: 40, rankSep: 90, edgeSep: 10 }).run();
   pinEnds(cy);
   applyFilter();            // restore the program filter's visibility
+  cy.stop();
   cy.fit(cy.elements(':visible'), 40);
   document.getElementById('focus-btn').textContent = 'Focus';
 }
