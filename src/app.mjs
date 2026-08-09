@@ -128,7 +128,7 @@ try {
     cb.type = 'checkbox'; cb.checked = true; cb.value = opt;
     cb.addEventListener('change', () => {
       if (cb.checked) programFilter.add(opt); else programFilter.delete(opt);
-      applyFilter();
+      if (focused) exitFocus(); else applyFilter();
     });
     label.appendChild(cb);
     label.appendChild(document.createTextNode(opt));
@@ -207,6 +207,7 @@ function selectNode(id) {
 }
 
 function clearSelection() {
+  if (focused) exitFocus();
   cy.elements().removeClass('dim lit-sel lit-up lit-down e-up e-down');
   panel.hidden = true;
 }
@@ -234,7 +235,6 @@ search.addEventListener('keydown', (e) => { if (e.key === 'Enter') trySearch(); 
 
 // ---------- Focus mode (isolate the selected node's chain; ignores the program filter) ----------
 let focused = false;
-let focusedId = null;
 
 function focusOn(id) {
   const { ancestors, descendants } = computeTrace(data, id);
@@ -250,12 +250,12 @@ function focusOn(id) {
   visible.layout({ name: 'dagre', rankDir: 'LR', nodeSep: 40, rankSep: 90, edgeSep: 10 }).run();
   pinEnds(cy, visible);
   cy.fit(cy.elements(':visible'), 40);
-  focused = true; focusedId = id;
+  focused = true;
   document.getElementById('focus-btn').textContent = 'Exit focus';
 }
 
 function exitFocus() {
-  focused = false; focusedId = null;
+  focused = false;
   cy.nodes().layout({ name: 'dagre', rankDir: 'LR', nodeSep: 40, rankSep: 90, edgeSep: 10 }).run();
   pinEnds(cy);
   applyFilter();            // restore the program filter's visibility
