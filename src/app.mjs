@@ -236,6 +236,27 @@ search.addEventListener('keydown', (e) => { if (e.key === 'Enter') trySearch(); 
 // ---------- Focus mode (isolate the selected node's chain; ignores the program filter) ----------
 let focused = false;
 
+// Fit the currently-visible elements into the usable viewport (excluding the
+// side panel when open and the bottom legend/filter bars). #cy already starts
+// below the header, so no header offset is needed.
+const FIT_BOTTOM = 72;   // legend / filter bar overlay height
+const FIT_PANEL = 336;   // side panel width (320) + gutter
+function fitVisible(pad = 40) {
+  const eles = cy.elements(':visible');
+  if (eles.empty()) return;
+  const b = eles.boundingBox();
+  if (!b.w || !b.h) return;
+  const panelW = panel.hidden ? 0 : FIT_PANEL;
+  const availW = Math.max(80, cy.width() - panelW - pad * 2);
+  const availH = Math.max(80, cy.height() - FIT_BOTTOM - pad * 2);
+  const zoom = Math.min(availW / b.w, availH / b.h);
+  cy.zoom(zoom);
+  cy.pan({
+    x: (pad + availW / 2) - (b.x1 + b.w / 2) * zoom,
+    y: (pad + availH / 2) - (b.y1 + b.h / 2) * zoom,
+  });
+}
+
 function focusOn(id) {
   const { ancestors, descendants } = computeTrace(data, id);
   const chain = new Set([id, ...ancestors, ...descendants]);
@@ -249,7 +270,7 @@ function focusOn(id) {
   cy.elements(':visible').layout({ name: 'dagre', rankDir: 'LR', nodeSep: 40, rankSep: 90, edgeSep: 10 }).run();
   pinEnds(cy, cy.nodes(':visible'));
   cy.stop();
-  cy.fit(cy.elements(':visible'), 50);
+  fitVisible(50);
   focused = true;
   document.getElementById('focus-btn').textContent = 'Exit focus';
 }
@@ -260,7 +281,7 @@ function exitFocus() {
   pinEnds(cy);
   applyFilter();            // restore the program filter's visibility
   cy.stop();
-  cy.fit(cy.elements(':visible'), 40);
+  fitVisible(40);
   document.getElementById('focus-btn').textContent = 'Focus';
 }
 
