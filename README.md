@@ -36,6 +36,21 @@ trace backwards; swap `upstreamRelation` and `downstreamRelation` in
 `DEFAULT_CONFIG` (or adjust `scripts/notion-transform.mjs` directly) and re-run
 `npm run build-data` until a known activity-to-outcome chain traces correctly.
 
+## Automatic daily refresh (GitHub Actions)
+
+`.github/workflows/refresh-data.yml` re-runs the Notion export daily (~6am ET)
+and commits any `data.json` change to `master`, which redeploys Pages. You can
+also trigger it on demand from the repo's **Actions → Refresh data from Notion →
+Run workflow** button.
+
+It needs two repository secrets (Settings → Secrets and variables → Actions, or
+the `gh` CLI):
+
+        gh secret set NOTION_TOKEN         # paste the Notion integration token
+        gh secret set NOTION_DATABASE_ID   # the theory-of-change database id
+
+The manual local refresh (`npm run build-data`) still works and is unaffected.
+
 ## Deploy
 
 The deployable site is the repository root (index.html, style.css, src/, vendor/,
