@@ -1,6 +1,16 @@
 {
   "nodes": [
     {
+      "id": "3f26e263-2e0b-80bb-baf7-c31a544bb0fc",
+      "label": "Create more advanced AI graduates",
+      "type": "intermediate"
+    },
+    {
+      "id": "3f26e263-2e0b-804e-9158-e32caf00ef45",
+      "label": "Launch collaborative research projects",
+      "type": "intermediate"
+    },
+    {
       "id": "3f26e263-2e0b-80d5-ad26-df60459e9f4f",
       "label": "Run AI Frontiers Schools",
       "type": "activity"
@@ -14,16 +24,6 @@
       "id": "3f26e263-2e0b-805b-9093-e798a0b46243",
       "label": "Establish applied AI working groups",
       "type": "activity"
-    },
-    {
-      "id": "3f26e263-2e0b-80a6-ba9e-d62ef310b2ec",
-      "label": "Enhance National training opportunities for advanced AI graduates",
-      "type": "intermediate"
-    },
-    {
-      "id": "3f26e263-2e0b-8090-a2d2-d4f679e8ab00",
-      "label": "Support Applied research working groups aligned to AI for All national priorities",
-      "type": "intermediate"
     },
     {
       "id": "3f26e263-2e0b-80fb-87f6-daa6e580f5a4",
@@ -41,5 +41,14 @@
       "type": "intermediate"
     }
   ],
-  "edges": []
+  "edges": [
+    {
+      "source": "3f26e263-2e0b-8097-ae02-cd5789a79a1a",
+      "target": "3f26e263-2e0b-80bb-baf7-c31a544bb0fc"
+    },
+    {
+      "source": "3f26e263-2e0b-805b-9093-e798a0b46243",
+      "target": "3f26e263-2e0b-804e-9158-e32caf00ef45"
+    }
+  ]
 }
